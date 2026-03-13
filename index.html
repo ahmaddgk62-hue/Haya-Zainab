@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Magical Surprise for Haya Zainab 💜</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ---------------------------------- */
+        /* --- 1. SETUP & CSS VARIABLES --- */
+        /* ---------------------------------- */
+        :root {
+            --dark-purple: #10002b;
+            --deep-violet: #240046;
+            --main-purple: #3c096c;
+            --light-purple: #5a189a;
+            --lavender: #c77dff;
+            --soft-pink-glow: #e0aaff;
+            --text-color: #f2e9f4;
+            --font-headings: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* CRITICAL: Disables all scrolling */
+            font-family: var(--font-body);
+            background: linear-gradient(320deg, var(--dark-purple), var(--deep-violet), var(--main-purple));
+            background-size: 200% 200%;
+            animation: gradient-flow 20s ease infinite;
+            color: var(--text-color);
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ---------------------------------- */
+        /* --- 2. ANIMATED BACKGROUND --- */
+        /* ---------------------------------- */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            background-color: var(--soft-pink-glow);
+            border-radius: 50%;
+            animation: float-particle 20s linear infinite;
+            opacity: 0;
+        }
+        @keyframes float-particle {
+            0% { transform: translateY(-10vh) scale(1); opacity: 0.8; }
+            100% { transform: translateY(110vh) scale(0); opacity: 0; }
+        }
+
+        /* ---------------------------------- */
+        /* --- 3. START OVERLAY (MUSIC FIX) --- */
+        /* ---------------------------------- */
+        #start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-purple);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1.5s ease;
+        }
+        #start-overlay h1 { font-size: 2rem; }
+        #start-overlay p { margin-bottom: 40px; }
+
+        /* Generic Glowing Button Style */
+        .glowing-btn {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            background-color: var(--light-purple);
+            border: 2px solid var(--lavender);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--soft-pink-glow);
+            box-shadow: 0 0 15px var(--soft-pink-glow), 0 0 25px var(--soft-pink-glow);
+            animation: pulse-glow 2.5s infinite;
+        }
+        .glowing-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--soft-pink-glow), 0 0 45px var(--soft-pink-glow);
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px var(--soft-pink-glow), 0 0 25px var(--soft-pink-glow); }
+            50% { box-shadow: 0 0 25px var(--soft-pink-glow), 0 0 45px var(--soft-pink-glow); }
+            100% { box-shadow: 0 0 15px var(--soft-pink-glow), 0 0 25px var(--soft-pink-glow); }
+        }
+
+        /* ---------------------------------- */
+        /* --- 4. PAGE STRUCTURE & TRANSITIONS --- */
+        /* ---------------------------------- */
+        .page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 40px 20px; z-index: 2;
+            opacity: 0; visibility: hidden; transform: scale(1.05);
+            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out, visibility 1.2s;
+        }
+        .page.active { opacity: 1; visibility: visible; transform: scale(1); }
+        
+        h1, h2 { font-family: var(--font-headings); font-weight: 700; text-shadow: 0 0 15px var(--soft-pink-glow); }
+        h1 { font-size: 3rem; margin-bottom: 20px; }
+        h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        p { font-size: 1.1rem; line-height: 1.8; max-width: 650px; }
+
+        .next-btn {
+            position: absolute; bottom: 50px;
+            /* Re-use the glowing button style */
+        }
+        .next-btn span {
+             animation: arrow-bounce 2s infinite;
+             display: inline-block;
+             margin-left: 10px;
+        }
+        @keyframes arrow-bounce {
+             0%, 100% { transform: translateX(0); }
+             50% { transform: translateX(8px); }
+        }
+
+
+        /* ---------------------------------- */
+        /* --- 5. PAGE-SPECIFIC STYLES --- */
+        /* ---------------------------------- */
+        #page-2 .hearts-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .heart { position: absolute; font-size: 24px; animation: float-heart 12s linear infinite; }
+        @keyframes float-heart { 0% { transform: translateY(110vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; } }
+
+        #page-3 .cards-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 900px; }
+        .card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 30px; width: 250px; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2); transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 0 25px var(--soft-pink-glow); }
+        .card h3 { font-size: 1.5rem; color: var(--soft-pink-glow); margin-bottom: 10px; }
+
+        #page-4 p { font-family: var(--font-headings); font-style: italic; font-size: 1.5rem; line-height: 2.2; }
+
+        #page-5 .confetti-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .confetti { position: absolute; width: 10px; height: 10px; opacity: 0; animation: confetti-fall 6s ease-out infinite; }
+        @keyframes confetti-fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(1080deg); opacity: 0; } }
+        
+        /* ---------------------------------- */
+        /* --- 6. ANIMATED CAT MASCOT --- */
+        /* ---------------------------------- */
+        #animated-cat { position: relative; width: 150px; height: 150px; margin-top: 30px; animation: cat-bounce 2.2s infinite ease-in-out; }
+        @keyframes cat-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+        .cat-body { position: absolute; bottom: 0; width: 100px; height: 100px; background: #333; border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%; left: 25px; }
+        .cat-head { position: absolute; bottom: 70px; left: 25px; width: 100px; height: 90px; background: #333; border-radius: 50%; }
+        .cat-ear { position: absolute; top: -10px; width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 30px solid #333; }
+        .ear-left { left: 5px; } .ear-right { right: 5px; }
+        .cat-eye { position: absolute; top: 35px; width: 15px; height: 15px; background: white; border-radius: 50%; animation: cat-blink 4s infinite; }
+        .eye-left { left: 25px; } .eye-right { right: 25px; }
+        .cat-eye .pupil { position: absolute; top: 4px; left: 4px; width: 7px; height: 7px; background: #000; border-radius: 50%; }
+        @keyframes cat-blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+        .cat-tail { position: absolute; bottom: 10px; left: -20px; width: 80px; height: 15px; background: #333; border-radius: 10px; transform-origin: right; animation: tail-wave 1.8s infinite ease-in-out; }
+        @keyframes tail-wave { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
+
+        /* ---------------------------------- */
+        /* --- 7. MUSIC & SECRET POPUP --- */
+        /* ---------------------------------- */
+        #music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 99; width: 50px; height: 50px;
+            background-color: var(--light-purple); border: 2px solid var(--lavender); border-radius: 50%;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 10px var(--soft-pink-glow); transition: all 0.3s ease;
+        }
+        #music-control:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--soft-pink-glow); }
+        #music-control svg { width: 24px; height: 24px; fill: var(--text-color); }
+        .hidden { display: none !important; }
+
+        #secret-trigger { position: fixed; bottom: 25px; left: 25px; font-size: 2.5rem; cursor: pointer; z-index: 50; opacity: 0.5; transition: opacity 0.3s ease, transform 0.3s ease; }
+        #secret-trigger:hover { opacity: 1; transform: scale(1.2) rotate(15deg); }
+
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 101; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+        .popup-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: var(--deep-violet); padding: 40px; border-radius: 20px; border: 2px solid var(--lavender); box-shadow: 0 0 40px var(--soft-pink-glow); z-index: 102; text-align: center; max-width: 90%; width: 400px; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: none; }
+        .popup-content p { font-size: 1.3rem; margin-bottom: 25px; }
+        .popup-content button { padding: 10px 20px; background: var(--light-purple); border: 1px solid var(--lavender); border-radius: 10px; color: var(--text-color); cursor: pointer; font-size: 1rem; }
+        .popup-overlay.active, .popup-content.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+        .popup-overlay.active { transform: none; }
+
+        /* ---------------------------------- */
+        /* --- 8. RESPONSIVE DESIGN --- */
+        /* ---------------------------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } p { font-size: 1rem; }
+            #page-3 .cards-container { flex-direction: column; align-items: center; }
+            .card { width: 90%; }
+            .next-btn { bottom: 40px; padding: 12px 30px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="particle-container"></div>
+
+    <!-- Music Player & Controls -->
+    <audio id="birthday-music" loop>
+        <!-- A gentle, royalty-free happy birthday track -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/08/02/audio_882959a43a.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="music-control">
+        <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+        <svg id="pause-icon" class="hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+    </div>
+
+    <!-- Secret Popup Elements -->
+    <div id="secret-trigger">⭐</div>
+    <div id="secret-popup-overlay" class="popup-overlay"></div>
+    <div id="secret-popup" class="popup-content">
+        <p>Just a small reminder: You are an amazing person and the world is better because you are in it.</p>
+        <button id="close-popup-btn">Close</button>
+    </div>
+
+    <!-- START OVERLAY - This is the fix for the music -->
+    <div id="start-overlay">
+        <h1>A Special Surprise Awaits...</h1>
+        <p>Please make sure your sound is on!</p>
+        <button id="start-btn" class="glowing-btn">Begin the Surprise</button>
+    </div>
+
+
+    <!-- Main Content Container -->
+    <main>
+        <!-- Page 1: Welcome Screen -->
+        <section id="page-1" class="page">
+            <h1>A Birthday Surprise</h1>
+            <p>For my best friend, Haya Zainab</p>
+            <button class="next-btn glowing-btn">Next <span>&rarr;</span></button>
+        </section>
+
+        <!-- Page 2: Heartfelt Birthday Message -->
+        <section id="page-2" class="page">
+            <div class="hearts-container"></div>
+            <h1>Happy 20th Birthday, Haya!</h1>
+            <p>Welcome to a new, beautiful chapter of your life! Seeing you grow into the kind, strong, and brilliant person you are has been a privilege. I am so grateful for our friendship and all the memories we've made.</p>
+            <button class="next-btn glowing-btn">More <span>&rarr;</span></button>
+        </section>
+
+        <!-- Page 3: Why You Are Special -->
+        <section id="page-3" class="page">
+            <h2>A Few Reasons You're So Special</h2>
+            <div class="cards-container">
+                <div class="card"><h3>Your Kindness</h3><p>You have a genuinely kind heart that brightens the world.</p></div>
+                <div class="card"><h3>Your Strength</h3><p>You face every challenge with grace and resilience. I truly admire you.</p></div>
+                <div class="card"><h3>Your Smile</h3><p>Your smile is contagious and brings joy to everyone around you.</p></div>
+            </div>
+            <button class="next-btn glowing-btn">And... <span>&rarr;</span></button>
+        </section>
+
+        <!-- Page 4: Dua & Blessings -->
+        <section id="page-4" class="page">
+            <h2>A Special Dua For You</h2>
+            <p>"May Allah bless you with a life full of happiness, health, and success. May He grant you peace in your heart and may all your beautiful dreams come true. Ameen."</p>
+            <button class="next-btn glowing-btn">Finally... <span>&rarr;</span></button>
+        </section>
+
+        <!-- Page 5: Final Celebration -->
+        <section id="page-5" class="page">
+            <div class="confetti-container"></div>
+            <h1>HAPPY BIRTHDAY HAYA ZAINAB! 🎉</h1>
+            <p>Here's to you and the amazing 20 years you've graced this world with. May your future be as bright as you are. Cheers to many more years of friendship and laughter!</p>
+            <div id="animated-cat">
+                <div class="cat-body"></div>
+                <div class="cat-head">
+                    <div class="cat-ear ear-left"></div><div class="cat-ear ear-right"></div>
+                    <div class="cat-eye eye-left"><div class="pupil"></div></div>
+                    <div class="cat-eye eye-right"><div class="pupil"></div></div>
+                </div>
+                <div class="cat-tail"></div>
+            </div>
+        </section>
+    </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. ELEMENT SELECTION ---
+    const startOverlay = document.getElementById('start-overlay');
+    const startBtn = document.getElementById('start-btn');
+    const pages = document.querySelectorAll('.page');
+    const nextButtons = document.querySelectorAll('.next-btn');
+    const music = document.getElementById('birthday-music');
+    const musicControl = document.getElementById('music-control');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const secretTrigger = document.getElementById('secret-trigger');
+    const secretPopup = document.getElementById('secret-popup');
+    const secretOverlay = document.getElementById('secret-popup-overlay');
+    const closePopupBtn = document.getElementById('close-popup-btn');
+
+    let currentPageIndex = 0;
+
+    // --- 2. START EXPERIENCE & MUSIC ---
+    startBtn.addEventListener('click', () => {
+        // This is the guaranteed user interaction to start audio
+        music.play().catch(error => {
+            console.error("Music playback failed:", error);
+            // Even if music fails, we continue with the visual experience
+        });
+        updateMusicIcon();
+
+        // Fade out the overlay
+        startOverlay.style.opacity = '0';
+        setTimeout(() => {
+            startOverlay.style.display = 'none';
+        }, 1500); // Match this with CSS transition duration
+
+        // Show the first page
+        pages[0].classList.add('active');
+    });
+
+    // --- 3. PAGE NAVIGATION LOGIC ---
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (currentPageIndex < pages.length - 1) {
+                pages[currentPageIndex].classList.remove('active');
+                currentPageIndex++;
+                pages[currentPageIndex].classList.add('active');
+            }
+        });
+    });
+
+    // --- 4. MUSIC CONTROL LOGIC ---
+    musicControl.addEventListener('click', () => {
+        if (music.paused) { music.play(); } else { music.pause(); }
+        updateMusicIcon();
+    });
+    function updateMusicIcon() {
+        if (music.paused) {
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        } else {
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+        }
+    }
+
+    // --- 5. SECRET POPUP LOGIC ---
+    function togglePopup() {
+        secretPopup.classList.toggle('active');
+        secretOverlay.classList.toggle('active');
+    }
+    secretTrigger.addEventListener('click', togglePopup);
+    closePopupBtn.addEventListener('click', togglePopup);
+    secretOverlay.addEventListener('click', togglePopup);
+
+    // --- 6. DYNAMIC ANIMATED ELEMENTS ---
+    function createDynamicElements(className, containerSelector, count, options = {}) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+        for (let i = 0; i < count; i++) {
+            const el = document.createElement('div');
+            el.className = className;
+            el.style.left = `${Math.random() * 100}vw`;
+            const duration = Math.random() * (options.maxDuration || 12) + (options.minDuration || 5);
+            el.style.animationDuration = `${duration}s`;
+            el.style.animationDelay = `${Math.random() * 5}s`;
+            if (options.contentArray) {
+                el.textContent = options.contentArray[Math.floor(Math.random() * options.contentArray.length)];
+                el.style.fontSize = `${Math.random() * 16 + 12}px`;
+            } else {
+                const size = `${Math.random() * (options.maxSize || 8) + (options.minSize || 4)}px`;
+                el.style.width = size; el.style.height = size;
+            }
+            if (options.colorArray) {
+                el.style.backgroundColor = options.colorArray[Math.floor(Math.random() * options.colorArray.length)];
+                if (Math.random() > 0.5) el.style.borderRadius = '50%';
+            }
+            container.appendChild(el);
+        }
+    }
+
+    // --- 7. INITIALIZE ANIMATIONS ---
+    createDynamicElements('particle', '.particle-container', 60, {minDuration: 15, maxDuration: 25, minSize: 1, maxSize: 3});
+    createDynamicElements('heart', '#page-2 .hearts-container', 30, { contentArray: ['💜', '💖', '✨'] });
+    createDynamicElements('confetti', '#page-5 .confetti-container', 100, { colorArray: ['var(--lavender)', 'var(--soft-pink-glow)', '#ffffff'] });
+});
+</script>
+
+</body>
+</html>
